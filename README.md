@@ -6,7 +6,7 @@ MCA_pseudobulk.R - R code describing how to generate stage-specific pseudobulk s
 
 generate_mixtures.py - generate mixtures of pseudobulk life stages at known percentages to test CIBERSORT for accuracy
 
-data
+mca_pseudobulk_meroringschizfilt_cpm.dat - Output from running generate_mixtures.py, e.g. pseudobulk for MCA life stages
 
 
 ## Examination of missing genes in Hepatocystis relative to Plasmodium
