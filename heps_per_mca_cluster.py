@@ -1,5 +1,9 @@
 # Given orthoMCL data for Pb and Hep, count orthologue groups shared by both and unique to Pb
 
+# AUTHOR: Adam Reid
+# Copyright (C) 2019 Genome Research Ltd.
+# This program is distributed under the terms of the GNU General Public License
+
 import sys
 import re
 import scipy, scipy.stats
