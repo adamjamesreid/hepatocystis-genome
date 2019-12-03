@@ -1,5 +1,9 @@
 # This script is designed to take pseudobulk RNA-seq data e.g. MCA and generate mixtures at known percentages to test e.g. CIBERSORT for accuracy
 
+# AUTHOR: Adam Reid
+# Copyright (C) 2019 Genome Research Ltd.
+# This program is distributed under the terms of the GNU General Public License
+
 import sys
 import pandas as pd
 
