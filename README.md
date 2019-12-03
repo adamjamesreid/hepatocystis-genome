@@ -16,7 +16,11 @@ hepatocystis_orthomcl.out - orthoMCL clusters for protein sequences from Hepatoc
 
 ## Alignments for phylogenetic trees
 apicoplast_concat_alignments.faa
+
 cytochrome_b_alignment.fa
+
 11_genes_with_hepatocystis_epomophori_concat_alignments.fa
+
 mitoch_proteins_concat_alignments.faa
+
 nuclear_genome_proteins_concat_alignments.faa
