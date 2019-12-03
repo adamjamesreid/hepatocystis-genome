@@ -27,12 +27,12 @@ heps_per_mca_cluster.py - find orthologue groups shared between P. berghei and e
 hepatocystis_orthomcl.out - orthoMCL clusters for protein sequences from Hepatocystis DNA assembly (Hepatocystis_DNA), RNA assembly (Hepatocystis_RNA) and various Plasmodium species.
 
 ## Alignments for phylogenetic trees
-apicoplast_concat_alignments.faa
+apicoplast_concat_alignments.faa - alignment of apicoplast sequences
 
-cytochrome_b_alignment.fa
+cytochrome_b_alignment.fa - cytochrome b alignment
 
-11_genes_with_hepatocystis_epomophori_concat_alignments.fa
+11_genes_with_hepatocystis_epomophori_concat_alignments.fa - 11 gene, multi-organelle alignment
 
-mitoch_proteins_concat_alignments.faa
+mitoch_proteins_concat_alignments.faa - alignment of mitochondrial sequences
 
-nuclear_genome_proteins_concat_alignments.faa
+nuclear_genome_proteins_concat_alignments.faa - alignment of nuclear genes
