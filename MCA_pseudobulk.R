@@ -1,5 +1,9 @@
 # Generate pseudobulk dataset from MCA for deconvolution of bulk RNA-seq samples
 
+# AUTHOR: Adam Reid
+# Copyright (C) 2019 Genome Research Ltd.
+# This program is distributed under the terms of the GNU General Public License
+
 library(pheatmap)
 library(scater)
 library(M3Drop)
