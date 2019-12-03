@@ -1,6 +1,18 @@
 # hepatocystis-genome
 Data and code relating to the Hepatocystis ex. Piliocolobus tephrosceles genome and transcriptome paper
 
+## Primary genome assembly and annotation files
+PRJEB32891_scaffolds.fasta.gz - assembly sequence in fasta format
+
+PRJEB32891_union.embl.gz - assembly and annotation in single EMBL record (union)
+
+PRJEB32891_scaffolds.embl.gz - assembly and annotation in EMBL format
+
+PRJEB32891_proteins.faa - protein sequences of predicted genes in fasta format
+
+PRJEB32891_transcripts.fa - spliced nucleotide sequences of predicted genes in fasta format
+
+
 ## Deconvolution of Hepatocystis bulk RNA-seq using Malaria Cell Atlas data and CIBERSORT
 MCA_pseudobulk.R - R code describing how to generate stage-specific pseudobulk samples as a reference for bulk RNA-seq deconvolution
 
