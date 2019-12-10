@@ -1,4 +1,4 @@
-# Hepatocystis genome
+# Hepatocystis genome (Aunin et al.)
 Data and code relating to the Hepatocystis ex. Piliocolobus tephrosceles genome and transcriptome paper
 
 ## Primary genome assembly and annotation files
