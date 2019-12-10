@@ -36,3 +36,14 @@ cytochrome_b_alignment.fa - cytochrome b alignment
 mitoch_proteins_concat_alignments.faa - alignment of mitochondrial sequences
 
 nuclear_genome_proteins_concat_alignments.faa - alignment of nuclear genes
+
+## Evolutionary analysis of genes
+codeml_batch.py - Wrapper script for running codeml (http://envgen.nox.ac.uk/bioinformatics/docs/codeml.html) as batch.
+Requires codeml to be installed and in path.
+
+gatk_count_variants_per_sample.py - Script for finding the average number of variants per 10 kb of reference genome in a VCF file (derived using GATK by merging GVCF files of multiple samples)
+
+gatk_count_variants_per_sample_sliding_window.py - Script for counting the number of variants per fixed length segments of the reference genome (default: 100 kb) in a VCF file using a sliding window.
+Input: a VCF file derived using GATK by merging GVCF files of multiple samples. The script assumes that the assembly that the reads were mapped to for variant calling was concatenated into one pseudochromosome before mapping.
+Output: a CSV file where the rows correspond to samples and the columns correspond to genome sequence bins.
+
