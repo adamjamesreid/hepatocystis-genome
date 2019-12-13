@@ -1,0 +1,122 @@
+---
+title: "Hepatocystis_dN_MCA_clusters"
+author: "Eerik Aunin"
+date: "December 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Distributions of Hepatocystis dN values in Malaria Cell Atlas (MCA) clusters
+This R Markdown file contains the R code for generating Figure S11 from the manuscript on the draft genome of Hepatocystis sp. ex Piliocolobus tephrosceles.
+The input files contain: 
+1) codeml 3-way dN comparison between Hepatocystis sp. ex Piliocolobus tephrosceles, P. bergei ANKA and P. ovale curtisi
+2) Malaria Cell Atlas cluster numbers assigned to P. berghei ANKA genes.
+Here they will be loaded and merged into one table.
+
+```{r loading data}
+library("ggplot2")
+
+in_path <- "hep_pberghei_povale_3-way_codeml_dn_results.txt"
+df <- read.csv(in_path, header=TRUE, sep="\t", stringsAsFactors=FALSE)
+
+mca_clusters_df_path <- "mca_gene_clusters.dat"
+mca_clusters_df <- read.csv(mca_clusters_df_path, header=TRUE, sep="\t", stringsAsFactors=FALSE)
+
+colnames(mca_clusters_df) <- c("PBANKA_transcript", "mca_cluster")
+df <- merge(df, mca_clusters_df, by="PBANKA_transcript", all=TRUE)
+```
+
+## Hepatocystis dN values per each Malaria Cell Atlas cluster
+
+The distributions of dN values per cluster can be plotted as a boxplot.
+
+```{r boxplot, echo=FALSE}
+boxplot_df <- df
+
+boxplot_df$mca_cluster <- as.factor(boxplot_df$mca_cluster)
+boxplot_df <- boxplot_df[,c("Gene", "hep_dn", "mca_cluster")]
+
+ind <- which(is.na(boxplot_df$hep_dn))
+boxplot_df <- boxplot_df[-ind,]
+
+ind <- which(is.na(boxplot_df$mca_cluster))
+boxplot_df <- boxplot_df[-ind,]
+ggplot(boxplot_df, aes(x=mca_cluster, y=hep_dn)) + geom_boxplot() + xlab("Malaria Cell Atlas cluster") + ylab("Hepatocystis dN") + ggtitle("Hepatocystis dN values per each Malaria Cell Atlas cluster") + theme(plot.title = element_text(hjust = 0.5))
+```
+## Kolmogorov-Smirnov test to compare dN distributions in clusters 15 and 16 with the distribution in other clusters
+```{r Kolmogorov-Smirnov test, echo=FALSE}
+
+#15 and 16 vs others
+ind <- which(is.element(boxplot_df$mca_cluster,c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 18, 19, 20)))
+dist1 <- boxplot_df$hep_dn[ind]
+ind2 <- which(is.element(boxplot_df$mca_cluster,c(15, 16)))
+dist2 <- boxplot_df$hep_dn[ind2]
+ks_result_cl15_16 <- ks.test(dist1, dist2)
+
+#15 vs others
+ind <- which(is.element(boxplot_df$mca_cluster,c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20)))
+dist1 <- boxplot_df$hep_dn[ind]
+ind2 <- which(is.element(boxplot_df$mca_cluster,c(15)))
+dist2 <- boxplot_df$hep_dn[ind2]
+ks_result_cl15 <- ks.test(dist1, dist2)
+
+#16 vs others
+ind <- which(is.element(boxplot_df$mca_cluster,c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20)))
+dist1 <- boxplot_df$hep_dn[ind]
+ind2 <- which(is.element(boxplot_df$mca_cluster,c(16)))
+dist2 <- boxplot_df$hep_dn[ind2]
+ks_result_cl16 <- ks.test(dist1, dist2)
+
+corrected_p_values <- p.adjust(c(ks_result_cl15$p.value, ks_result_cl16$p.value, ks_result_cl15_16$p.value))
+```
+
+Printing out the p-values from Kolmogorov-Smirnov test
+
+```{r, echo=FALSE}
+print(paste0("Cluster 15 vs other clusters, KS test p-value: ", corrected_p_values[1]))
+print(paste0("Cluster 16 vs other clusters, KS test p-value: ", corrected_p_values[2]))
+print(paste0("Clusters 15 and 16 combined vs other clusters, KS test p-value: ", corrected_p_values[3]))
+```
+## Fisher’s exact test to find clusters where the number of genes with high dN differs from what is expected by chance
+```{r}
+df <- df[order(df$hep_dn, decreasing=TRUE),]
+df2 <- df[!is.na(df$hep_dn),]
+top_gene_limit <- as.integer(0.05 * nrow(df2))
+top_genes <- df2$Gene[1:top_gene_limit]
+
+df$top_gene_flag <- sapply(df$Gene, is.element, top_genes)
+mca_clusters <- unique(df$mca_cluster)
+mca_clusters <- mca_clusters[!is.na(mca_clusters)]
+
+total_nr_of_genes <- nrow(df2)
+counts_df <- data.frame()
+
+for(mca_cl in mca_clusters) {
+  top_gene_count <- length(which(df$mca_cluster == mca_cl & df$top_gene_flag == TRUE))
+  other_gene_count <- length(which(df$mca_cluster == mca_cl & df$top_gene_flag == FALSE))
+  cluster_total_gene_count <- top_gene_count + other_gene_count
+  expected_top_gene_count <- cluster_total_gene_count * top_gene_limit / total_nr_of_genes
+  sam <- matrix(c(top_gene_count, cluster_total_gene_count, round(expected_top_gene_count, 0), cluster_total_gene_count),nrow=2,ncol=2)
+  pvalue <- fisher.test(sam)$p.value
+  cluster_vect <- c(mca_cl, top_gene_count, other_gene_count, expected_top_gene_count, pvalue)
+  counts_df <- rbind(counts_df, cluster_vect)
+}
+
+colnames(counts_df) <- c("mca_cluster", "top_gene_count", "other_gene_count", "expected_top_gene_count", "pvalue")
+counts_df$adjusted_pvalue <- p.adjust(counts_df$pvalue)
+ind <- which(counts_df$adjusted_pvalue < 0.05)
+print(paste0("Cluster where the number of genes with high dN differs from what is expected by chance (Fisher’s exact test with Holm multiple hypothesis testing correction, p-value < 0.05): cluster ", counts_df$mca_cluster[ind], ", p-value: ", counts_df$adjusted_pvalue[ind]))
+
+```
+## Bar chart of the ratio of observed vs expected nr of genes with dN rank in top 5%
+```{r}
+counts_df$observed_expected_ratio <- counts_df$top_gene_count/counts_df$expected_top_gene_count
+counts_df$mca_cluster <- as.factor(counts_df$mca_cluster)
+
+ggplot(data=counts_df, aes(x=mca_cluster, y=observed_expected_ratio)) + geom_bar(stat="identity") + xlab("Malaria Cell Atlas cluster") +
+  ylab("Ratio of observed vs expected nr of genes with dN rank in top 5%") + theme(plot.title = element_text(hjust = 0.5)) + ggtitle("Genes with dN in the top 5%: observed versus expected ratios for MCA clusters")
+```
+
