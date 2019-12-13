@@ -25,8 +25,6 @@ nuclear_genome_proteins_concat_alignments.faa - alignment of nuclear genes
 
 concatenate_fasta_alignments.py - Script for concatenating protein FASTA alignments of different genes in order to make a species phylogeny tree
 
-crop_translatorx_alignments.py - Script for processing TranslatorX alignments to remove badly aligned parts (similarly to what Gblocks does)
-
 ## Deconvolution of Hepatocystis bulk RNA-seq using Malaria Cell Atlas data and CIBERSORT
 merge_htseq-count_output_files.py - Script for merging htseq-count output files of multiple samples from same study into one table
 
@@ -56,6 +54,8 @@ mca_gene_clusters.dat - File describing which genes are in which Malaria Cell At
 hep_pberghei_povale_3-way_codeml_dn_results.txt - Results of codeml dN analysis
 
 hepatocystis_dn_and_mca_clusters.Rmd - This R Markdown file contains the R code for generating Figure S11 from the manuscript on the draft genome of Hepatocystis sp. ex Piliocolobus tephrosceles
+
+crop_translatorx_alignments.py - Script for processing TranslatorX alignments to remove badly aligned parts (similarly to what Gblocks does)
 
 ## Processing of 10X Chromium sequencing reads
 
