@@ -17,7 +17,7 @@ apicoplast_concat_alignments.faa - alignment of apicoplast sequences
 
 cytochrome_b_alignment.fa - cytochrome b alignment
 
-11_genes_with_hepatocystis_epomophori_concat_alignments.fa - 11 gene, multi-organelle alignment
+11_genes_with_hepatocystis_epomophori_concat_alignments.fa - 11 nuclear gene alignment
 
 mitoch_proteins_concat_alignments.faa - alignment of mitochondrial sequences
 
