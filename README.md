@@ -37,7 +37,7 @@ mca_pseudobulk_meroringschizfilt_cpm.dat - Output from running generate_mixtures
 ## Examination of missing genes in Hepatocystis relative to Plasmodium
 heps_per_mca_cluster.py - find orthologue groups shared between P. berghei and either P. ovale or P. vivax, but absent from Hepatocystis and see whether Malaria Cell Atlas gene clusters are enriched for these.
 
-python heps_per_mca_cluster.py hepatocystis_orthomcl.out mca_gene_clusters.dat ../../Pberghei.prot.desc
+```python heps_per_mca_cluster.py hepatocystis_orthomcl.out mca_gene_clusters.dat ../../Pberghei.prot.desc```
 
 hepatocystis_orthomcl.out - orthoMCL clusters for protein sequences from Hepatocystis DNA assembly (Hepatocystis_DNA), RNA assembly (Hepatocystis_RNA) and various Plasmodium species.
 
