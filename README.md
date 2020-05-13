@@ -1,6 +1,12 @@
 # Hepatocystis genome (Aunin et al.)
 Data and code relating to the Hepatocystis ex. Piliocolobus tephrosceles genome and transcriptome paper
 
+
+
+
+
+
+
 ## Primary genome assembly and annotation files
 PRJEB32891_scaffolds.fasta.gz - assembly sequence in fasta format
 
@@ -13,6 +19,8 @@ PRJEB32891_proteins.faa - protein sequences of predicted genes in fasta format
 PRJEB32891_transcripts.fa - spliced nucleotide sequences of predicted genes in fasta format
 
 ## Alignments for phylogenetic trees
+S1_dataset_genes_for_phylogenetic_trees.xlsx - Table of the IDs of sequences that were used to generate the phylogenetic trees
+
 apicoplast_concat_alignments.faa - alignment of apicoplast sequences
 
 cytochrome_b_alignment.fa - cytochrome b alignment
@@ -59,6 +67,14 @@ hepatocystis_dn_and_mca_clusters.Rmd - This R Markdown file contains the R code 
 
 crop_translatorx_alignments.py - Script for processing TranslatorX alignments to remove badly aligned parts (similarly to what Gblocks does)
 
+hep_pfam_domains_in_top_dn.py	- Script for checking for the enrichment of PFAM domains in the Hepatocystis proteins with top dN values
+
+## Analysis of *Haemoproteus tartakovskyi* genome
+
+hepatocystis_orthomcl_with_haemoproteus.out	- Output file of an OrthoMCL run that includes the proteome of Haemoproteus tartakovskyi in addition to the proteomes of Hepatocystis and Plasmodium species
+
+htartakovskyi_proteins_companion.faa - Proteins of Haemoproteus tartakovskyi, annotated using Companion software 
+
 ## Processing of 10X Chromium sequencing reads
 
 chromium_reads_remove_barcodes.cpp - C++ program to remove barcodes and linkers from FASTQ files of Chromium reads
@@ -73,6 +89,10 @@ fasta_f.py - Multitool script for processing FASTA files. It collects various fu
 protein_motif_search.py - Script for detecting motifs in protein FASTA sequences
 
 split_union_embl.py - Script for splitting a union EMBL file (that has been made from scaffolds EMBL file using 'EMBOSS union') back into EMBL files of individual scaffolds
+
+detect_low_complexity_contaminant_contigs.R	- Script that was used to detect low complexity contaminant contigs in the Hepatocystis genome assembly
+
+hep_proteins_pfam_domains.txt	- List of PFAM domains in Hepatocystis proteins
 
 ## Other
 hep_project_shared_functions.py - File for functions that are shared between many scripts in the Hepatocystis project
