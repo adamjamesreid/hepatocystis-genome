@@ -1,7 +1,7 @@
 ---
 title: "Hepatocystis_dN_MCA_clusters"
 author: "Eerik Aunin"
-date: "December 2019"
+date: "Created in December 2019, edited in May 2020"
 output: html_document
 ---
 
@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Distributions of Hepatocystis dN values in Malaria Cell Atlas (MCA) clusters
-This R Markdown file contains the R code for generating Figure S11 from the manuscript on the draft genome of Hepatocystis sp. ex Piliocolobus tephrosceles.
+This R Markdown file contains the R code for generating Figure S12 from the manuscript on the draft genome of Hepatocystis sp. ex Piliocolobus tephrosceles.
 The input files contain: 
 1) codeml 3-way dN comparison between Hepatocystis sp. ex Piliocolobus tephrosceles, P. bergei ANKA and P. ovale curtisi
 2) Malaria Cell Atlas cluster numbers assigned to P. berghei ANKA genes.
@@ -19,6 +19,14 @@ Here they will be loaded and merged into one table.
 ```{r loading data}
 library("ggplot2")
 
+crop_gene_name <- function(name_with_p1_tag) {
+  # Function for removing the -p1 tag from a gene name
+  cropped_name <- strsplit(name_with_p1_tag, "-p1", fixed=TRUE)[[1]][1]
+  return(cropped_name)
+}
+
+plus1_formatter <- function(x) {x + 1}
+
 in_path <- "hep_pberghei_povale_3-way_codeml_dn_results.txt"
 df <- read.csv(in_path, header=TRUE, sep="\t", stringsAsFactors=FALSE)
 
@@ -26,6 +34,7 @@ mca_clusters_df_path <- "mca_gene_clusters.dat"
 mca_clusters_df <- read.csv(mca_clusters_df_path, header=TRUE, sep="\t", stringsAsFactors=FALSE)
 
 colnames(mca_clusters_df) <- c("PBANKA_transcript", "mca_cluster")
+mca_clusters_df$PBANKA_transcript <- sapply(mca_clusters_df$PBANKA_transcript, crop_gene_name)
 df <- merge(df, mca_clusters_df, by="PBANKA_transcript", all=TRUE)
 ```
 
@@ -116,7 +125,9 @@ print(paste0("Cluster where the number of genes with high dN differs from what i
 counts_df$observed_expected_ratio <- counts_df$top_gene_count/counts_df$expected_top_gene_count
 counts_df$mca_cluster <- as.factor(counts_df$mca_cluster)
 
-ggplot(data=counts_df, aes(x=mca_cluster, y=observed_expected_ratio)) + geom_bar(stat="identity") + xlab("Malaria Cell Atlas cluster") +
-  ylab("Ratio of observed vs expected nr of genes with dN rank in top 5%") + theme(plot.title = element_text(hjust = 0.5)) + ggtitle("Genes with dN in the top 5%: observed versus expected ratios for MCA clusters")
+counts_df$observed_expected_ratio_minus_1 <- counts_df$observed_expected_ratio - 1
+ggplot(data=counts_df, aes(x=mca_cluster, y=observed_expected_ratio_minus_1)) + geom_bar(stat="identity") + xlab("Malaria Cell Atlas cluster") +
+  ylab("Ratio of observed vs expected nr of genes with dN rank in top 5%") + theme(plot.title = element_text(hjust = 0.5)) + scale_y_continuous(labels=plus1_formatter) + coord_flip() +
+  ggtitle("Genes with dN in the top 5%: observed versus expected ratios for MCA clusters")
 ```
 
