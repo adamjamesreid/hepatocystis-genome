@@ -71,9 +71,11 @@ hep_pfam_domains_in_top_dn.py	- Script for checking for the enrichment of PFAM d
 
 ## Analysis of *Haemoproteus tartakovskyi* genome
 
-hepatocystis_orthomcl_with_haemoproteus.out	- Output file of an OrthoMCL run that includes the proteome of Haemoproteus tartakovskyi in addition to the proteomes of Hepatocystis and Plasmodium species
+hepatocystis_orthomcl_with_haemoproteus.out	- Output file of an OrthoMCL run that includes the proteome of *Haemoproteus tartakovskyi* in addition to the proteomes of *Hepatocystis* and *Plasmodium* species
 
-htartakovskyi_proteins_companion.faa - Proteins of Haemoproteus tartakovskyi, annotated using Companion software 
+htartakovskyi_proteins_companion.faa - Proteins of *Haemoproteus tartakovskyi*, annotated using Companion software 
+
+haemoproteus_tartakovskyi_companion_annotations.embl - Sequence and Companion annotation of *Haemoproteus tartakovskyi* genome
 
 ## Processing of 10X Chromium sequencing reads
 
