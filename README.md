@@ -63,7 +63,7 @@ mca_gene_clusters.dat - File describing which genes are in which Malaria Cell At
 
 hep_pberghei_povale_3-way_codeml_dn_results.txt - Results of codeml dN analysis
 
-hepatocystis_dn_and_mca_clusters.Rmd - This R Markdown file contains the R code for generating Figure S11 from the manuscript on the draft genome of Hepatocystis sp. ex Piliocolobus tephrosceles
+hepatocystis_dn_and_mca_clusters.Rmd - This R Markdown file contains the R code for generating Figure S12 from the manuscript on the draft genome of Hepatocystis sp. ex Piliocolobus tephrosceles
 
 crop_translatorx_alignments.py - Script for processing TranslatorX alignments to remove badly aligned parts (similarly to what Gblocks does)
 
